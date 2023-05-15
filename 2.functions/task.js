@@ -5,7 +5,7 @@ function chekArray(...arr) {
     return false;
   }
   let notNumber = false;
-  arr.forEach((value) => {
+  arr.forEach(value => {
     if (!Number.isFinite(value)) {
       notNumber = true;
       return;
@@ -51,7 +51,7 @@ function differenceEvenOddWorker(...arr) {
   }
   let sumEvenElement = 0;
   let sumOddElement = 0;
-  arr.forEach(function (value) {
+  arr.forEach(value => {
     value % 2 ? sumOddElement += value : sumEvenElement += value;
   });
   return sumEvenElement - sumOddElement;
@@ -63,7 +63,7 @@ function averageEvenElementsWorker(...arr) {
   }
   let sumEvenElement = 0;
   let countEvenElement = 0;
-  arr.forEach((value) => {
+  arr.forEach(value => {
     if (value % 2 === 0) {
       sumEvenElement += value;
       countEvenElement++;
@@ -78,8 +78,8 @@ function makeWork(arrOfArr, func) {
     return 0;
   }
   let notNumber = false;
-  arrOfArr.forEach((arr) => {
-    arr.forEach((value) => {
+  arrOfArr.forEach(arr => {
+    arr.forEach(value => {
       if (!Number.isFinite(value)) {
         notNumber = true;
         return;
