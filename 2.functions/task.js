@@ -44,17 +44,12 @@ function differenceEvenOddWorker(...arr) {
   if (!chekArray(...arr)) {
     return 0;
   }
-  // let sumEvenElement = 0;
-  // let sumOddElement = 0;
-  // arr.forEach(value => {
-  //   value % 2 ? sumOddElement += value : sumEvenElement += value;
-  // });
-  // return sumEvenElement - sumOddElement;
-  arr.reduce((acc, item, idx, arr) => {
-    if (idx === arr.length) {
+  return arr.reduce((acc, item, idx, arr) => {
+    if (idx === arr.length - 1) {
+      item % 2 ?  acc[1] += item : acc[0] += item;
       return acc[0] - acc[1];
     }
-    item % 2 ? acc[1] += item : acc[0] += item;
+    return item % 2 ? [acc[0], acc[1] + item] : [acc[0] + item, acc[1]];
   }, [0, 0]);
 }
 
@@ -62,32 +57,18 @@ function averageEvenElementsWorker(...arr) {
   if (!chekArray(...arr)) {
     return 0;
   }
-  let sumEvenElement = 0;
-  let countEvenElement = 0;
-  arr.forEach(value => {
-    if (value % 2 === 0) {
-      sumEvenElement += value;
-      countEvenElement++;
+  return arr.filter(el => el % 2 === 0).reduce((acc, item, idx, arr) => {
+    if (idx === arr.length - 1) {
+      return parseFloat(((acc + item) / arr.length).toFixed(2));
     }
-  });
-  return countEvenElement ? parseFloat((sumEvenElement / countEvenElement).toFixed(2)) : 0;
+    return acc + item;
+  }, 0);
 }
 
 function makeWork(arrOfArr, func) {
   // проверка на наличие элементов и отсутсвие "не чисел" в двумерном массиве
-  if (!arrOfArr.length || !arrOfArr.every(arr => arr.every(el => Number.isFinite(el))
-  )) {
+  if (!arrOfArr.length || !arrOfArr.every(arr => chekArray(...arr))) {
     return 0;
   }
-
-
-  let maxWorkerResult = func(...arrOfArr[0]),
-    result;
-  for (let i = 1; i < arrOfArr.length; i++) {
-    result = func(...arrOfArr[i]);
-    if (result > maxWorkerResult) {
-      maxWorkerResult = result;
-    }
-  }
-  return maxWorkerResult;
+  return Math.max(...arrOfArr.map(arr => func(...arr)));
 }
